@@ -10,7 +10,7 @@ public class TeleportationManager : MonoBehaviour
 
     [SerializeField] private InputActionAsset actionAsset;
 
-    [SerializeField] private Transform camera;
+    [SerializeField] private Transform _camera;
 
     //[SerializeField] private bool debugOn;
     //[SerializeField] private Text angleText;
@@ -117,7 +117,7 @@ public class TeleportationManager : MonoBehaviour
                                   _thumbstickDirection.y)
                               * Mathf.Rad2Deg;
         //SetAngleText(thumbstickAngle);
-        return thumbstickAngle + camera.eulerAngles.y;
+        return thumbstickAngle + _camera.eulerAngles.y;
     }
 
     /*private void SetDebug()
