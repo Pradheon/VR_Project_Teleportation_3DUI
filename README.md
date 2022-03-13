@@ -1,2 +1,2 @@
 # VR_Project_Teleportation_3DUI
- VR Project combining Teleportstion and 3D buttons
+ VR Project combining Teleportation and 3D buttons
