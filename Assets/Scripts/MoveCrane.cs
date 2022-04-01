@@ -11,67 +11,102 @@ public class MoveCrane : MonoBehaviour
     [SerializeField] Transform to;
     [SerializeField] GameObject sphere;
 
-    float direction = 0;
+    float directionY = 0;
+    float directionX = 0;
+    bool attached;
 
     void Update()
     {
         float step = speed * Time.deltaTime; // calculate distance to move
-        if (direction == -1 && transform.position.y > lowerLimit.position.y)
+
+        // Y-Direction Movement
+        if (directionY == -1 && transform.position.y > lowerLimit.position.y)
         {
             Debug.Log("Going down " + transform.position.y);
             transform.position = Vector3.MoveTowards(transform.position, lowerLimit.position, step);
             if (Mathf.Approximately(transform.position.y, lowerLimit.position.y))
             {
-                direction = 0;
+                directionY = 0;
                 sphere.transform.parent = transform.transform;
+                sphere.GetComponent<Rigidbody>().isKinematic = true;
             }
         }
-        else if (direction == 1 && transform.position.y < upperLimit.position.y)
+        else if (directionY == 1 && transform.position.y < upperLimit.position.y)
         {
             Debug.Log("Going up " + transform.position.y);
             transform.position = Vector3.MoveTowards(transform.position, upperLimit.position, step);
             if (Mathf.Approximately(transform.position.y, upperLimit.position.y))
             {
-                direction = 0;
+                directionY = 0;
             }
         }
 
-        /*
-        if (direction == -1 && transform.position.x > from.position.x)
+        // X-Direction Movement
+        if (directionX == -1 && transform.position.x > from.position.x)
         {
             transform.position = Vector3.MoveTowards(transform.position, from.position, step);
             if (Mathf.Approximately(transform.position.x, from.position.x))
             {
-                direction = 0;
-            }
-            else if (direction == 1 && transform.position.x < to.position.x)
-            {
-
+                directionX = 0;
             }
         }
-        */
+        else if (directionX == 1 && transform.position.x < to.position.x)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, to.position, step);
+            if (Mathf.Approximately(transform.position.x, to.position.x))
+            {
+                directionX = 0;
+            }
+        }
     }
 
     public void RedButtonPressed()
     {
-        direction = -1;
+        directionY = -1;
     }
     public void RedButtonReleased()
     {
-        //direction = 0;
+        //directionY = 0;
     }
 
     public void BlueButtonPressed()
     {
-        direction = 1;
+        directionY = 1;
     }
     public void BlueButtonReleased()
     {
-        //direction = 0;
+        //directionY = 0;
     }
 
     public void GreenButtonPressed()
     {
-        direction = 1;
+        directionX = 1;
+    }
+
+    public void GreenButtonReleased()
+    {
+        //directionX = 1;
+    }
+
+    public void PinkButtonPressed()
+    {
+        directionX = -1;
+    }
+
+    public void PinkButtonReleased()
+    {
+        //directionX = 1;
+    }
+
+    public void YellowButtonPressed()
+    {
+        transform.parent = null;
+        sphere.GetComponent<Rigidbody>().isKinematic = false;
+        sphere.GetComponent<Rigidbody>().detectCollisions = true;
+    }
+
+    public void YellowButtonReleased()
+    {
+        //does nothing
     }
 }
